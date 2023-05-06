@@ -1,5 +1,9 @@
 This is a Next.js project
 
+### Loop Function
+
+This end point `/api/loop/[number]` will output "fizz" when counter is divided by 3, output "buzz" when counter is divided by 5, output "fizzbuzz" when counter is divided by both 3 & 5 else output number
+
 ### Random hash generator
 
 This end point `/api/ran-hash` will return a unique random hash
