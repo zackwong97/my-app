@@ -1,5 +1,4 @@
 let hashCache = [];
-const hashURL = process.env.NODE_ENV == 'development' ? process.env.APP_URL : process.env.APP_URL_PROD;
 
 export default function handler(req, res){
     let promiseArr = [];
@@ -23,7 +22,7 @@ export default function handler(req, res){
 }
 
 function fetchHash(resolve, res){
-    fetch(`${hashURL}/api/ran-hash`)
+    fetch('http://127.0.0.1:3000/api/ran-hash')
     .then(response => response.json())
     .then(data => {
         const lastChar = parseInt(data.hash.slice(-1));
