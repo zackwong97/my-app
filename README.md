@@ -16,7 +16,7 @@ Sample return
 
 ### Load Test
 
-`/api/odd-hash` end point load test results using JMeter, raw results and JMeter settings can be found in `loadtest` folder
+`/api/odd-hash` end point load test results using JMeter (1 request per second for 30 seconds), raw results and JMeter settings can be found in `loadtest` folder
 
 | Label | # Samples	| Average |	Median | 90% Line | 95% Line | 99% Line | Min | Max | Error % | Throughput | Received KB/sec | Sent KB/sec |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
