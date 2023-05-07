@@ -10,13 +10,23 @@ import { UserProvider, useUser } from 'context/userContext';
 
 export default function Main() {
     return (
+        <Wrapper>
+            <ItemList />
+        </Wrapper>
+    );
+}
+
+export function Wrapper({children}) {
+    return (
         <UserProvider>
-            <TopBar />
+            <TopBar>
+                {children}
+            </TopBar>
         </UserProvider>
     );
 }
 
-export function TopBar () {
+export function TopBar ({ children }) {
     const router = useRouter();
     const { myUser } = useUser();
     const [isMounted, setIsMounted] = useState(false);
@@ -41,7 +51,7 @@ export function TopBar () {
         type: "normal",
         stylingMode: "outlined",
         onClick(e){
-            console.log('cart');
+            router.push('/cart');
         }
     }
 
@@ -66,10 +76,10 @@ export function TopBar () {
                     <Button {...buttonProps} />
                 </Popover>}
             </div>
-            <h3>Shoplee</h3>
+            <h3 onClick={()=>router.push('/main')}>Shoplee</h3>
             <Button {...buttonCartProps} />
         </div>
-        <ItemList />
+        {children}
     </>
     );
 }

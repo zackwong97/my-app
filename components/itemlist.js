@@ -6,6 +6,11 @@ import Image from 'next/image';
 import TextBox from 'devextreme-react/text-box';
 import { SelectBox } from 'devextreme-react/select-box';
 import DataSource from 'devextreme/data/data_source';
+import Popup from 'devextreme-react/popup';
+import ScrollView from 'devextreme-react/scroll-view';
+import Gallery from 'devextreme-react/gallery';
+import { createRoot } from 'react-dom/client';
+import { NumberBox } from 'devextreme-react/number-box';
 
 export default function ItemList () {
     const { myUser } = useUser();
@@ -15,6 +20,8 @@ export default function ItemList () {
     const catSelectRef = useRef(null);
     const searchBoxRef = useRef(null);
     const sortSelectRef = useRef(null);
+    const popupRef = useRef(null);
+    const qualityRef = useRef(null);
     
     
     useEffect(() => {
@@ -135,6 +142,75 @@ export default function ItemList () {
             });
         }
     };
+
+    const popupDetails = {
+        fullScreen: true,
+        showCloseButton: true,
+    };
+
+    const addCartBtn = {
+        text: 'Add to Cart',
+        width: '100%',
+        type: 'success',
+        stylingMode: 'contained',
+        onClick(e){
+            console.log(myUser);
+            fetch('https://dummyjson.com/carts/add', {
+                method: 'POST',
+                headers: {...myUser.req.headers, 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userId: myUser.id,
+                    products: [
+                        {
+                            id: e.component._props.selectProduct,
+                            quantity: qualityRef.current.instance.option('value'),
+                        },
+                    ]
+                })
+            })
+            .then(res => res.json())
+            .then(console.log);
+            
+            popupRef.current.instance.hide();
+        }
+    };
+
+    const viewDetails = (id) => {
+        fetch(`https://dummyjson.com/products/${id}`, myUser.req)
+        .then(res => res.json())
+        .then((product)=>{
+            let popInt = popupRef.current.instance;
+            popInt.option({
+                title: product.title,
+                contentTemplate(e, b){
+                    let container = createRoot(e);
+                    container.render(<ScrollView width='100%' height='100%'>
+                        <Gallery
+                            dataSource={product.images}
+                            height={300}
+                            loop={true}
+                            showNavButtons={true}
+                            showIndicator={true}
+                        />
+                        <div style={{fontWeight: '600', fontSize: '1.5rem'}}>{product.title}</div>
+                        <div style={{}}>Brand: {product.brand}, Category: {product.category}</div>
+                        <div className={`${styles.itemPrice}`}>${product.price}</div>
+                        <div className={`${styles.itemRating}`}>{product.rating} ⭐</div>
+                        <div style={{margin: '10px 0px', fontSize: '1.2rem'}}>{product.description}</div>
+                        <NumberBox ref={qualityRef}
+                            style={{marginBottom: '15px'}}
+                            useLargeSpinButtons={true}
+                            min={0}
+                            defaultValue={0}
+                            showSpinButtons={true}
+                        />
+                        <Button {...addCartBtn} selectProduct={id}/>
+                    </ScrollView>);
+                },
+            });
+            popInt.show();
+        });
+    };
     
     return (
         <div>
@@ -147,7 +223,7 @@ export default function ItemList () {
             </div>
             <div className={`${styles.itemGroup}`}>
                 {data && data.products.map(item => (
-                    <div key={item.id} className={`${styles.itemCard}`}>
+                    <div onClick={() => viewDetails(item.id)} key={item.id} className={`${styles.itemCard}`}>
                         <Image
                             src={item.thumbnail ? item.thumbnail : '/'}
                             alt={item.title}
@@ -169,6 +245,7 @@ export default function ItemList () {
                 <Button {...prevBtn} disabled={skip === 0 ? true : false}/>
                 <Button {...nextBtn} disabled={(data && data.skip + data.limit >= data.total ? true : false)}/>
             </div>
+            <Popup ref={popupRef} {...popupDetails}/>
         </div>
     );
 }

@@ -17,7 +17,7 @@ export function UserProvider({ children }) {
     }else{
         user.req = {
           headers: {
-            'Authorization': `Bearer ${user.token}`
+            'Authorization': `Bearer ${user.token}`,
           }
         };
         setMyUser(user);
