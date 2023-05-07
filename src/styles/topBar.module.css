@@ -1,0 +1,18 @@
+.topBar {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgrey;
+}
+
+.userProfile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.name {
+    font-weight: 500;
+    margin-bottom: 10px;
+}

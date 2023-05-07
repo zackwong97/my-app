@@ -1,9 +1,9 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 6rem;
+  padding: 4rem;
   min-height: 100vh;
 }
 
@@ -226,4 +226,8 @@
   to {
     transform: rotate(0deg);
   }
+}
+
+.loginTitle{
+  margin-bottom: 25px;
 }

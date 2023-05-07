@@ -1,0 +1,45 @@
+.itemGroup{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 5px;
+    grid-gap: 5px;
+}
+
+.itemCard {
+    border: 1px solid lightgrey;
+    border-radius: 0.25rem;
+    overflow: hidden;
+}
+
+.cardInfo{
+    padding: 0px 5px 5px 5px;
+}
+
+.itemImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.itemName{
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.itemPrice{
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: orangered;
+}
+
+.itemCategory{
+    font-size: 0.7rem;
+    color: grey;
+}
+
+.buttonGroup{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 5px;
+    grid-gap: 5px;
+}
