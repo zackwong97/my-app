@@ -66,6 +66,7 @@ export function TopBar () {
                     <Button {...buttonProps} />
                 </Popover>}
             </div>
+            <h3>Shoplee</h3>
             <Button {...buttonCartProps} />
         </div>
         <ItemList />

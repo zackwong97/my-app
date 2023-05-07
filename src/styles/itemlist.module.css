@@ -37,9 +37,18 @@
     color: grey;
 }
 
+.itemRating{
+    color: darkorange;
+    font-weight: 500;
+}
+
 .buttonGroup{
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 5px;
     grid-gap: 5px;
+}
+
+.searchBar{
+    padding: 3px 5px 3px 5px;
 }
